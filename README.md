@@ -1,3 +1,3 @@
 # **ProjectA**
-### **WEB-active 3D manager game** *<sub>with (?)social mechanics with other players via transpassing resources(?)</sub>*.
-*Inspired by Lobotomy Corporation.*
+### **WEB-active 2D ASCII-graphics roleplaying game**.
+*Heavily inspired by Cataclysm: Dark Days Ahead and Space Station 13.*
