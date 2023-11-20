@@ -16,21 +16,47 @@ class engine::vec {         // Трёхпространственный вект
         short int y;        // Крайние границы -32,726 - 32,726
         char z;             // Глубина
     public:
+                            // Конструкторы вектора:
         vec();
         vec(short int cord1, short int cord2, char cord3);
         vec(short int cord1, short int cord2);
         vec& operator= (vec& newData);
+                            // *-------------------*
+                            // Деструкторы вектора:
         ~vec();
+                            // *-------------------*
 
-        inline short int getX();
-        inline short int getY();
-        inline char      getZ();
 
-        void setX(short int newX);
-        void setY(short int newY);
-        void setZ(char      newZ);
+                            // Внешние функции получения и установки координат
+        inline short int getX();    // Внешнее получение координаты X
+        inline short int getY();    // Внешнее получение координаты Y
+        inline char      getZ();    // Внешнее получение координаты Z
 
-        friend std::ostream& operator<< (std::ostream& Out, vec& Vector);
-        friend std::istream& operator>> (std::istream&  In, vec& Vector);
+        void setX(short int newX);  // Внешняя установка координаты X
+        void setY(short int newY);  // Внешняя установка координаты Y 
+        void setZ(char      newZ);  // Внешняя установка координаты Z
+                            // *----------------------------------------------*
+
+                            // Определение операндов
+        vec& operator+= (vec& vectorData);
+        vec& operator-= (vec& vectorData);
+        vec& operator*= (vec& vectorData);
+        vec& operator*= (int& integerNum);
+        vec& operator/= (vec& vectorData);
+        vec& operator/= (int& integerNum);
+
+        vec operator* (const int& integerNum) const;
+        vec operator/ (const int& integerNum) const;
+        vec operator* (const vec& vectorData) const;
+        vec operator/ (const vec& vectorData) const;
+
+        bool operator== (vec& vectorData) const;
+        bool operator!= (vec& vectorData) const;
+                            // *-------------------*
+
+                            // Сопряжённая перегрузка дружественных функций
+        friend std::ostream& operator<< (std::ostream& Out, const vec& Vector);   // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
+        friend std::istream& operator>> (std::istream&  In, vec& Vector);   // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
+                            // *------------------------------------------*
 };
 #endif
