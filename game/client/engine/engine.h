@@ -6,13 +6,14 @@
 #define ENGINE_H
 
 namespace engine {  // Пространство движка. Включает в себя трёхпространственный вектор vec(short, short, char), его расширенную версию cxvec(float, float, float), структуры данных, объекты и методы взаимодействия с сценами.
+    template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
     class vec;          // vec   [Vector]        : Создание вектора для координат сцены, карты, передвижения игрока, взаимодействия и др.
     //class cxvec;        // cxvec [Complex Vector]: Создание вектора для комплексного передвижения при помощи углов
     class obj;          // obj   [Object]        : Координатная сетка сцены состоит из объектов. Благодаря объектам можно идентифицировать один объект от другого.
 }
 
 
-template <typename TypeXY = short, typename TypeZ = char>
+template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
 class engine::vec {         // Трёхпространственный вектор формата (short, short, char). Таким образом максимально возможное поле ограничивается размерами 2^16 x 2^16 x 2^8. Отсчёт идёт с 0 и возможны отрицательные значения.
     private:
         TypeXY x;                // Ожидаемые крайние границы -32 768 - 32 768
@@ -42,11 +43,11 @@ class engine::vec {         // Трёхпространственный вект
                             // *-------------------------------------------------*
                             // == Методы ==
                                     // *==   Методы  длины   ==*
-        int getLen() const;                         // Нахождение квадратной длины относительно 0 0 0
-        int getLen(const vec& centerData) const;    // Нахождение квадратной длины относительно вектора
+        double getLen() const;                         // Нахождение квадратной длины относительно 0 0 0
+        double getLen(const vec& centerData) const;    // Нахождение квадратной длины относительно вектора
 
-        int getDist() const;
-        int getDist(const vec& centerData) const;
+        double getDist() const;
+        double getDist(const vec& centerData) const;
                                     // *-----------------------*
                             // *----------*
 
@@ -55,14 +56,14 @@ class engine::vec {         // Трёхпространственный вект
         vec& operator+= (const vec& vectorData);                //
         vec& operator-= (const vec& vectorData);                //
         vec& operator*= (const vec& vectorData);                // 
-        vec& operator*= (const int& integerNum);                //
+        vec& operator*= (const Tnm& integerNum);                //
         vec& operator/= (const vec& vectorData);                //
-        vec& operator/= (const int& integerNum);                //
+        vec& operator/= (const Tnm& integerNum);                //
                                                     // *---------------------------------------*
 
                                                     // *==    Операторы суммы и умножения    ==*
-        vec operator* (const int& integerNum) const;            //
-        vec operator/ (const int& integerNum) const;            //
+        vec operator* (const Tnm& integerNum) const;            //
+        vec operator/ (const Tnm& integerNum) const;            //
         vec operator* (const vec& vectorData) const;            //
         vec operator/ (const vec& vectorData) const;            //
         vec operator+ (const vec& vectorData) const;            //

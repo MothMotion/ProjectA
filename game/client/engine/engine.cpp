@@ -1,18 +1,19 @@
 #include "engine.h"
 
 namespace engine {
-    vec::vec() {
+    template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
+    vec<TypeXY, TypeZ>::vec() {
         this -> x=0;
         this -> y=0;
         this -> z=0;
     }
 
-    vec::vec(short x, short y, char z) {
+    vec<TypeXY, TypeZ>::vec(TypeXY x, TypeXY y, TypeZ z) {
         this -> x = x;
         this -> y = y;
         this -> z = z;
     }
-    vec::vec(short x, short y) {
+    vec::vec(TypeXY x, TypeXY y) {
         this -> x = x;
         this -> y = y;
         this -> z = 0;
@@ -33,35 +34,35 @@ namespace engine {
 
 
 
-    inline short vec::getX() {return x;}
-    inline short vec::getY() {return y;}
-    inline char  vec::getZ() {return z;}
+    inline TypeXY vec::getX() {return x;}
+    inline TypeXY vec::getY() {return y;}
+    inline TypeZ  vec::getZ() {return z;}
 
-    void vec::setX(short newX) {x = newX;}
-    void vec::setY(short newY) {y = newY;}
-    void vec::setZ(char  newZ) {z = newZ;}
+    void vec::setX(TypeXY newX) {x = newX;}
+    void vec::setY(TypeXY newY) {y = newY;}
+    void vec::setZ(TypeZ  newZ) {z = newZ;}
 
 
 
-    int vec::getLen() const {return (int(x*x) + int(y*y) + int(z*z));}
-    int vec::getLen(const vec& centerData) const
-                                     {return (int((x-centerData.x)*(x-centerData.x))
-                                            + int((y-centerData.y)*(y-centerData.y))
-                                            + int((z-centerData.z)*(z-centerData.z)));}
-    int vec::getDist() const {return sqrt(this -> getLen());}
-    int vec::getDist(const vec& centerData) const {return sqrt(this -> getLen(centerData));}
+    double vec::getLen() const {return (double(x*x) + double(y*y) + double(z*z));}
+    double vec::getLen(const vec& centerData) const
+                                     {return (double((x-centerData.x)*(x-centerData.x))
+                                            + double((y-centerData.y)*(y-centerData.y))
+                                            + double((z-centerData.z)*(z-centerData.z)));}
+    double vec::getDist() const {return sqrt(this -> getLen());}
+    double vec::getDist(const vec& centerData) const {return sqrt(this -> getLen(centerData));}
 
 
 
     vec& vec::operator+= (const vec& vectorData) {x += vectorData.x; y += vectorData.y; z += vectorData.z; return *this;}
     vec& vec::operator-= (const vec& vectorData) {x -= vectorData.x; y -= vectorData.y; z -= vectorData.z; return *this;}
     vec& vec::operator*= (const vec& vectorData) {x *= vectorData.x; y *= vectorData.y; z *= vectorData.z; return *this;}
-    vec& vec::operator*= (const int& integerNum) {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
+    vec& vec::operator*= (const Tnm& integerNum) {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
     vec& vec::operator/= (const vec& vectorData) {x /= vectorData.x; y /= vectorData.y; z /= vectorData.z; return *this;}
-    vec& vec::operator/= (const int& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
+    vec& vec::operator/= (const Tnm& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
 
-    vec vec::operator* (const int& integerNum) const {return vec(x*integerNum,   y*integerNum,   z*integerNum);  }
-    vec vec::operator/ (const int& integerNum) const {return vec(x/integerNum,   y/integerNum,   z/integerNum);  }
+    vec vec::operator* (const Tnm& integerNum) const {return vec(x*integerNum,   y*integerNum,   z*integerNum);  }
+    vec vec::operator/ (const Tnm& integerNum) const {return vec(x/integerNum,   y/integerNum,   z/integerNum);  }
     vec vec::operator* (const vec& vectorData) const {return vec(x*vectorData.x, y*vectorData.y, z*vectorData.z);}
     vec vec::operator/ (const vec& vectorData) const {return vec(x/vectorData.x, y/vectorData.y, z/vectorData.z);}              //!!!!! Деление 0 на 0! Необходимо выдавать ошибку bad value(vector.[INCORRECT_VALUE_CORD])
     vec vec::operator+ (const vec& vectorData) const {return vec(x+vectorData.x, y-vectorData.x, z-vectorData.z);}
