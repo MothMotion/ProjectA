@@ -1,14 +1,12 @@
-#include "engine.h"
+#include "engine.hpp"
 
 namespace engine {
-    template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
-    vec<TypeXY, TypeZ>::vec() {
+    vec::vec() {
         this -> x=0;
         this -> y=0;
         this -> z=0;
     }
-
-    vec<TypeXY, TypeZ>::vec(TypeXY x, TypeXY y, TypeZ z) {
+    vec::vec(TypeXY x, TypeXY y, TypeZ z) {
         this -> x = x;
         this -> y = y;
         this -> z = z;
@@ -76,15 +74,13 @@ namespace engine {
 
 
     std::ostream& operator<< (std::ostream& Out, const vec& Vector) {
-        Out << Vector.x << " " <<
-        Vector.y << " " << Vector.z;
+        Out << Vector.x << " " << Vector.y << " " << Vector.z;
         return Out;
     }
 
     std::istream& operator>> (std::istream&  In, vec& Vector) {
-        short x, y, z; In >> x >> y >> z; 
-        vec Vector_new(x,y,z);
-        Vector = Vector_new; return In;
+        TypeXY x, y; TypeZ z; In >> x >> y >> z; 
+        Vector = Vector_new(x,y,z); return In;
     }
 }
 
