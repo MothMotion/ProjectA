@@ -1,4 +1,4 @@
-#include "engine/engine.hpp"
+#include "engine/engine.ipp"
 
 
 
@@ -9,6 +9,6 @@ int main() {
     engine::vec test = res * x;
     std::cout << test << std::endl;
     std::cout << engine::vec<short, short, char>(1,2) * 2 << std::endl;
-    std::cout<< engine::vec<short, char, int>(1,2) / engine::vec<short, char, int>(-1, 0, 2) << std::endl;
+    std::cout << engine::vec<short, char, int>(1,2) / engine::vec<short, char, int>(-1, 0, 2) << std::endl;
     return 0;
 }

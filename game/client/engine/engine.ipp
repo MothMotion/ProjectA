@@ -1,7 +1,7 @@
 #include "engine.hpp"
 
 namespace engine {
-    vec::vec() {
+    vec::vec() noexcept {
         this -> x=0;
         this -> y=0;
         this -> z=0;
@@ -16,12 +16,12 @@ namespace engine {
         this -> y = y;
         this -> z = 0;
     }
-    vec::vec(engine::vec& copyData) {
+    vec::vec(engine::vec& copyData) noexcept {
         x = copyData.x;
         y = copyData.y;
         z = copyData.z;
     }
-    vec& vec::operator= (engine::vec& newData) {
+    vec& vec::operator= (engine::vec& newData) noexcept {
         if(*this == newData) return *this;
         x = newData.x;
         y = newData.y;
@@ -32,30 +32,30 @@ namespace engine {
 
 
 
-    inline TypeXY vec::getX() {return x;}
-    inline TypeXY vec::getY() {return y;}
-    inline TypeZ  vec::getZ() {return z;}
+    inline TypeXY vec::getX() noexcept {return x;}
+    inline TypeXY vec::getY() noexcept {return y;}
+    inline TypeZ  vec::getZ() noexcept {return z;}
 
-    void vec::setX(TypeXY newX) {x = newX;}
-    void vec::setY(TypeXY newY) {y = newY;}
-    void vec::setZ(TypeZ  newZ) {z = newZ;}
+    inline void vec::setX(TypeXY newX) noexcept {x = newX;}
+    inline void vec::setY(TypeXY newY) noexcept {y = newY;}
+    inline void vec::setZ(TypeZ  newZ) noexcept {z = newZ;}
 
 
 
-    double vec::getLen() const {return (double(x*x) + double(y*y) + double(z*z));}
-    double vec::getLen(const vec& centerData) const
+    double vec::getLen() const noexcept {return (double(x*x) + double(y*y) + double(z*z));}
+    double vec::getLen(const vec& centerData) const noexcept
                                      {return (double((x-centerData.x)*(x-centerData.x))
                                             + double((y-centerData.y)*(y-centerData.y))
                                             + double((z-centerData.z)*(z-centerData.z)));}
-    double vec::getDist() const {return sqrt(this -> getLen());}
-    double vec::getDist(const vec& centerData) const {return sqrt(this -> getLen(centerData));}
+    double vec::getDist() const noexcept {return sqrt(this -> getLen());}
+    double vec::getDist(const vec& centerData) const noexcept {return sqrt(this -> getLen(centerData));}
 
 
 
-    vec& vec::operator+= (const vec& vectorData) {x += vectorData.x; y += vectorData.y; z += vectorData.z; return *this;}
-    vec& vec::operator-= (const vec& vectorData) {x -= vectorData.x; y -= vectorData.y; z -= vectorData.z; return *this;}
-    vec& vec::operator*= (const vec& vectorData) {x *= vectorData.x; y *= vectorData.y; z *= vectorData.z; return *this;}
-    vec& vec::operator*= (const Tnm& integerNum) {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
+    vec& vec::operator+= (const vec& vectorData) noexcept {x += vectorData.x; y += vectorData.y; z += vectorData.z; return *this;}
+    vec& vec::operator-= (const vec& vectorData) noexcept {x -= vectorData.x; y -= vectorData.y; z -= vectorData.z; return *this;}
+    vec& vec::operator*= (const vec& vectorData) noexcept {x *= vectorData.x; y *= vectorData.y; z *= vectorData.z; return *this;}
+    vec& vec::operator*= (const Tnm& integerNum) noexcept {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
     vec& vec::operator/= (const vec& vectorData) {x /= vectorData.x; y /= vectorData.y; z /= vectorData.z; return *this;}
     vec& vec::operator/= (const Tnm& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
 
@@ -73,14 +73,15 @@ namespace engine {
 
 
 
-    std::ostream& operator<< (std::ostream& Out, const vec& Vector) {
+    //template <typename TypeXY, typename TypeZ, typename Tnm>
+    friend std::ostream& operator<< (std::ostream& Out, const vec& Vector) {
         Out << Vector.x << " " << Vector.y << " " << Vector.z;
         return Out;
     }
-
-    std::istream& operator>> (std::istream&  In, vec& Vector) {
+    //template <typename TypeXY, typename TypeZ, typename Tnm>
+    friend std::istream& operator>> (std::istream&  In, vec& Vector) {
         TypeXY x, y; TypeZ z; In >> x >> y >> z; 
-        Vector = Vector_new(x,y,z); return In;
+        Vector = engine::vec(x,y,z); return In;
     }
 }
 

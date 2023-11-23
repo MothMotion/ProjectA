@@ -6,7 +6,7 @@
 #define ENGINE_H
 
 namespace engine {  // Пространство движка. Включает в себя трёхпространственный вектор vec(short, short, char), его расширенную версию cxvec(float, float, float), структуры данных, объекты и методы взаимодействия с сценами.
-    template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
+    template <typename TypeXY, typename TypeZ, typename Tnm>
     class vec;          // vec   [Vector]        : Создание вектора для координат сцены, карты, передвижения игрока, взаимодействия и др.
     //class cxvec;        // cxvec [Complex Vector]: Создание вектора для комплексного передвижения при помощи углов
     class obj;          // obj   [Object]        : Координатная сетка сцены состоит из объектов. Благодаря объектам можно идентифицировать один объект от другого.
