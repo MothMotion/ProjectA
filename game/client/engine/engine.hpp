@@ -21,11 +21,11 @@ class engine::vec {         // Трёхпространственный вект
         TypeZ  z;                // Ожидаемые крайние границы -128 - 127
     public:
                             // ==Конструкторы вектора:==
-        vec();
+        vec() noexcept;
         vec(TypeXY cord1, TypeXY cord2, TypeZ cord3);
         vec(TypeXY cord1, TypeXY cord2);
-        vec(vec& copyData);
-        vec& operator= (vec& newData);
+        vec(vec& copyData) noexcept;
+        vec& operator= (vec& newData) noexcept;
                             // *-----------------------*
                             // ==Деструкторы вектора:==
         ~vec();
@@ -33,52 +33,54 @@ class engine::vec {         // Трёхпространственный вект
 
 
                             // ==Внешние функции получения и установки координат==
-        inline TypeXY getX();        // Внешнее получение координаты X
-        inline TypeXY getY();        // Внешнее получение координаты Y
-        inline TypeZ  getZ();        // Внешнее получение координаты Z
+        inline TypeXY getX() const noexcept;        // Внешнее получение координаты X
+        inline TypeXY getY() const noexcept;        // Внешнее получение координаты Y
+        inline TypeZ  getZ() const noexcept;        // Внешнее получение координаты Z
 
-        void setX(TypeXY newX);      // Внешняя установка координаты X
-        void setY(TypeXY newY);      // Внешняя установка координаты Y 
-        void setZ(TypeZ  newZ);      // Внешняя установка координаты Z
+        void setX(TypeXY newX) noexcept;            // Внешняя установка координаты X
+        void setY(TypeXY newY) noexcept;            // Внешняя установка координаты Y 
+        void setZ(TypeZ  newZ) noexcept;            // Внешняя установка координаты Z
                             // *-------------------------------------------------*
                             // == Методы ==
                                     // *==   Методы  длины   ==*
-        double getLen() const;                         // Нахождение квадратной длины относительно 0 0 0
-        double getLen(const vec& centerData) const;    // Нахождение квадратной длины относительно вектора
+        double getLen() const noexcept;                         // Нахождение квадратной длины относительно 0 0 0
+        double getLen(const vec& centerData) const noexcept;    // Нахождение квадратной длины относительно вектора
 
-        double getDist() const;
-        double getDist(const vec& centerData) const;
+        double getDist() const noexcept;
+        double getDist(const vec& centerData) const noexcept;
                                     // *-----------------------*
                             // *----------*
 
                             // ==Определение операторов==
                                                     // *==Операторы сопряжённые с присвоением==*
-        vec& operator+= (const vec& vectorData);                //
-        vec& operator-= (const vec& vectorData);                //
-        vec& operator*= (const vec& vectorData);                // 
-        vec& operator*= (const Tnm& integerNum);                //
-        vec& operator/= (const vec& vectorData);                //
-        vec& operator/= (const Tnm& integerNum);                //
+        vec& operator+= (const vec& vectorData) noexcept;                //
+        vec& operator-= (const vec& vectorData) noexcept;                //
+        vec& operator*= (const vec& vectorData) noexcept;                // 
+        vec& operator*= (const Tnm& integerNum) noexcept;                //
+        vec& operator/= (const vec& vectorData);                         //
+        vec& operator/= (const Tnm& integerNum);                         //
                                                     // *---------------------------------------*
 
                                                     // *==    Операторы суммы и умножения    ==*
-        vec operator* (const Tnm& integerNum) const;            //
-        vec operator/ (const Tnm& integerNum) const;            //
-        vec operator* (const vec& vectorData) const;            //
-        vec operator/ (const vec& vectorData) const;            //
-        vec operator+ (const vec& vectorData) const;            //
-        vec operator- (const vec& vectorData) const;            //
+        vec operator* (const Tnm& integerNum) const noexcept;           //
+        vec operator/ (const Tnm& integerNum) const;                    //
+        vec operator* (const vec& vectorData) const noexcept;           //
+        vec operator/ (const vec& vectorData) const;                    //
+        vec operator+ (const vec& vectorData) const noexcept;           //
+        vec operator- (const vec& vectorData) const noexcept;           //
                                                     // *---------------------------------------*
 
                                                     // *==         Булевые операторы         ==*
-        bool operator== (const vec& vectorData) const;
-        bool operator!= (const vec& vectorData) const;
+        bool operator== (const vec& vectorData) const noexcept;
+        bool operator!= (const vec& vectorData) const noexcept;
                                                     // *---------------------------------------*
                             // *-----------------------*
-
-                            // ==Сопряжённая перегрузка дружественных функций==
-        friend std::ostream& operator<< (std::ostream& Out, const vec& Vector);     // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
-        friend std::istream& operator>> (std::istream&  In, vec& Vector);           // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
-                            // *----------------------------------------------*
 };
+                            // ==Сопряжённая перегрузка дружественных функций==
+        template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
+        std::ostream& operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ, Tnm>& Vector);     // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
+        template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
+        std::istream& operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ, Tnm>& Vector);           // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
+                            // *----------------------------------------------*
+//};
 #endif
