@@ -6,16 +6,16 @@
 #define ENGINE_H
 
 namespace engine {  // Пространство движка. Включает в себя трёхпространственный вектор vec(short, short, char), его расширенную версию cxvec(float, float, float), структуры данных, объекты и методы взаимодействия с сценами.
-    template <typename TypeXY, typename TypeZ, typename Tnm>
+    template <typename TypeXY, typename TypeZ>
     class vec;          // vec   [Vector]        : Создание вектора для координат сцены, карты, передвижения игрока, взаимодействия и др.
     //class cxvec;        // cxvec [Complex Vector]: Создание вектора для комплексного передвижения при помощи углов
     class obj;          // obj   [Object]        : Координатная сетка сцены состоит из объектов. Благодаря объектам можно идентифицировать один объект от другого.
 }
 
 
-
-template <typename TypeXY=short, typename TypeZ=char, typename Tnm=int>
-class engine::vec {         // Трёхпространственный вектор формата (short, short, char). Таким образом максимально возможное поле ограничивается размерами 2^16 x 2^16 x 2^8. Отсчёт идёт с 0 и возможны отрицательные значения.
+namespace engine {
+template <typename TypeXY=short, typename TypeZ=char>
+class vec {         // Трёхпространственный вектор формата (short, short, char). Таким образом максимально возможное поле ограничивается размерами 2^16 x 2^16 x 2^8. Отсчёт идёт с 0 и возможны отрицательные значения.
     private:
         TypeXY x;                // Ожидаемые крайние границы -32 768 - 32 768
         TypeXY y;                // Ожидаемые крайние границы -32 768 - 32 768
@@ -28,8 +28,8 @@ class engine::vec {         // Трёхпространственный вект
         vec(vec& copyData) noexcept;
         vec& operator= (vec& newData) noexcept;
                             // *-----------------------*
-                            // ==Деструкторы вектора:==
-        ~vec();
+                            // ==Деструктор   вектора:==
+        ~vec() = default;
                             // *----------------------*
 
 
@@ -47,8 +47,8 @@ class engine::vec {         // Трёхпространственный вект
         double getLen() const noexcept;                         // Нахождение квадратной длины относительно 0 0 0
         double getLen(const vec& centerData) const noexcept;    // Нахождение квадратной длины относительно вектора
 
-        double getDist() const noexcept;
-        double getDist(const vec& centerData) const noexcept;
+        inline double getDist() const noexcept;
+        inline double getDist(const vec& centerData) const noexcept;
                                     // *-----------------------*
                             // *----------*
 
@@ -57,31 +57,37 @@ class engine::vec {         // Трёхпространственный вект
         vec& operator+= (const vec& vectorData) noexcept;                //
         vec& operator-= (const vec& vectorData) noexcept;                //
         vec& operator*= (const vec& vectorData) noexcept;                // 
-        vec& operator*= (const Tnm& integerNum) noexcept;                //
+        template <typename any>                                          //
+        vec& operator*= (const any& integerNum) noexcept;                //
         vec& operator/= (const vec& vectorData);                         //
-        vec& operator/= (const Tnm& integerNum);                         //
+        template <typename any>                                          //
+        vec& operator/= (const any& integerNum);                         //
                                                     // *---------------------------------------*
 
                                                     // *==    Операторы суммы и умножения    ==*
-        vec operator* (const Tnm& integerNum) const noexcept;           //
-        vec operator/ (const Tnm& integerNum) const;                    //
-        vec operator* (const vec& vectorData) const noexcept;           //
-        vec operator/ (const vec& vectorData) const;                    //
-        vec operator+ (const vec& vectorData) const noexcept;           //
-        vec operator- (const vec& vectorData) const noexcept;           //
+        template <typename any>                                                 //
+        inline vec operator* (const any& integerNum) const noexcept;            //
+        template <typename any>                                                 //
+        inline vec operator/ (const any& integerNum) const;                     //
+        inline vec operator* (const vec& vectorData) const noexcept;            //
+        inline vec operator/ (const vec& vectorData) const;                     //
+        inline vec operator+ (const vec& vectorData) const noexcept;            //
+        inline vec operator- (const vec& vectorData) const noexcept;            //
                                                     // *---------------------------------------*
 
                                                     // *==         Булевые операторы         ==*
-        bool operator== (const vec& vectorData) const noexcept;
-        bool operator!= (const vec& vectorData) const noexcept;
+        inline bool operator== (const vec& vectorData) const noexcept;
+        inline bool operator!= (const vec& vectorData) const noexcept;
                                                     // *---------------------------------------*
                             // *-----------------------*
 };
                             // ==Сопряжённая перегрузка дружественных функций==
-        template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
-        std::ostream& operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ, Tnm>& Vector);     // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
-        template <typename TypeXY = short, typename TypeZ = char, typename Tnm = int>
-        std::istream& operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ, Tnm>& Vector);           // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
-                            // *----------------------------------------------*
-//};
+template <typename TypeXY = short, typename TypeZ = char>
+std::ostream& operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ>& Vector);     // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
+template <typename TypeXY = short, typename TypeZ = char>
+std::istream& operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ>& Vector);           // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
+// *----------------------------------------------*
+};
+//#include "engine.cpp"
+
 #endif

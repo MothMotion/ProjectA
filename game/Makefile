@@ -1,9 +1,10 @@
-CXXFLAGS = -std=c++17 -Wall -pedantic-errors
+CXX=g++
+CXXFLAGS=
 client/ProjA: client/main.o client/engine/engine.o
-	g++ $(CXXFLAGS) -o client/ProjA client/main.o client/engine/engine.o -I./client/engine/
-client/main.o: client/main.cpp
-	g++ $(CXXFLAGS) -c -o client/main.o client/main.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
+client/main.o: client/main.cpp client/engine/engine.o
+	$(CXX) $(CXXFLAGS) -o $@ $<
 client/engine/engine.o: client/engine/engine.h client/engine/engine.cpp
-	g++ $(CXXFLAGS) -c -o client/engine/engine.o client/engine/engine.cpp -I./client/engine/
+	$(CXX) $(CXXFLAGS) -o $@ client/engine/engine.cpp client/engine/engine.h
 clean:
-	rm client/*.o client/engine/*.o
+	rm -f client/*.o client/engine/*.o
