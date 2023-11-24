@@ -5,6 +5,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+
+
 namespace engine {  // Пространство движка. Включает в себя трёхпространственный вектор vec(short, short, char), его расширенную версию cxvec(float, float, float), структуры данных, объекты и методы взаимодействия с сценами.
     template <typename TypeXY, typename TypeZ>
     class vec;          // vec   [Vector]        : Создание вектора для координат сцены, карты, передвижения игрока, взаимодействия и др.
@@ -66,18 +68,18 @@ class vec {         // Трёхпространственный вектор ф�
 
                                                     // *==    Операторы суммы и умножения    ==*
         template <typename any>                                                 //
-        inline vec operator* (const any& integerNum) const noexcept;            //
+        vec operator* (const any& integerNum) const noexcept;            //
         template <typename any>                                                 //
-        inline vec operator/ (const any& integerNum) const;                     //
-        inline vec operator* (const vec& vectorData) const noexcept;            //
-        inline vec operator/ (const vec& vectorData) const;                     //
-        inline vec operator+ (const vec& vectorData) const noexcept;            //
-        inline vec operator- (const vec& vectorData) const noexcept;            //
+        vec operator/ (const any& integerNum) const;                     //
+        vec operator* (const vec& vectorData) const noexcept;            //
+        vec operator/ (const vec& vectorData) const;                     //
+        vec operator+ (const vec& vectorData) const noexcept;            //
+        vec operator- (const vec& vectorData) const noexcept;            //
                                                     // *---------------------------------------*
 
                                                     // *==         Булевые операторы         ==*
-        inline bool operator== (const vec& vectorData) const noexcept;
-        inline bool operator!= (const vec& vectorData) const noexcept;
+        bool operator== (const vec& vectorData) const noexcept;
+        bool operator!= (const vec& vectorData) const noexcept;
                                                     // *---------------------------------------*
                             // *-----------------------*
 };

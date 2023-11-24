@@ -1,10 +1,10 @@
 CXX=g++
-CXXFLAGS=
-client/ProjA: client/main.o client/engine/engine.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
-client/main.o: client/main.cpp client/engine/engine.o
-	$(CXX) $(CXXFLAGS) -o $@ $<
-client/engine/engine.o: client/engine/engine.h client/engine/engine.cpp
-	$(CXX) $(CXXFLAGS) -o $@ client/engine/engine.cpp client/engine/engine.h
+CXXFLAGS=-Wall -Wextra
+client/ProjA: client/main.o client/engine/libengine.so
+	$(CXX) $(CXXFLAGS) -o $@ client/main.o -L./client/engine -lengine
+client/main.o: client/main.cpp client/engine/libengine.so
+	$(CXX) $(CXXFLAGS) -o $@ client/main.cpp
+client/engine/libengine.so: client/engine/engine.h client/engine/vector.cpp
+	$(CXX) $(CXXFLAGS) -o $@ -c client/engine/vector.cpp
 clean:
-	rm -f client/*.o client/engine/*.o
+	rm -f client/*.o client/engine/libengine.so
