@@ -1,10 +1,10 @@
 #include "engine.h"
-
+/*
 template class engine::vec<float, float>;       // Для точечного передвижения по глобальной карте. Координатная сетка сцены располагается на short int и char
 template class engine::vec<short, char>;        // Стандартный вектор для координатной сетки основной сцены
 template class engine::vec<long, int>;          // Стандартный вектор для глобальной карты
 template class engine::vec<double, double>;     // Расширенный верктор глобальной карты или точечного передвижения
-
+*/
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>::vec() noexcept {this->x=0; this->y=0; this->z=0;}
 
@@ -68,26 +68,22 @@ engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator-= (const vec& v
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator*= (const vec& vectorData) noexcept {x *= vectorData.x; y *= vectorData.y; z *= vectorData.z; return *this;}
     
-template <typename TypeXY, typename TypeZ>
-template <typename any>
-engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator*= (const any& integerNum) noexcept {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
+//template <typename TypeXY, typename TypeZ> template <typename any>
+//engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator*= (const any& integerNum) noexcept {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
     
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator/= (const vec& vectorData) {x /= vectorData.x; y /= vectorData.y; z /= vectorData.z; return *this;}
     
-template <typename TypeXY, typename TypeZ>
-template <typename any>
-engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator/= (const any& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
+//template <typename TypeXY, typename TypeZ> template <typename any>
+//engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator/= (const any& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
 
 
 
-template <typename TypeXY, typename TypeZ>
-template <typename any>
-engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator* (const any& integerNum) const noexcept {return vec(x*integerNum,   y*integerNum,   z*integerNum);  }
+//template <typename TypeXY, typename TypeZ> template <typename any>
+//engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator* (const any& integerNum) const noexcept {return vec(x*integerNum,   y*integerNum,   z*integerNum);  }
 
-template <typename TypeXY, typename TypeZ>
-template <typename any>    
-engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator/ (const any& integerNum) const          {return vec(x/integerNum,   y/integerNum,   z/integerNum);  }
+//template <typename TypeXY, typename TypeZ> template <typename any>    
+//engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator/ (const any& integerNum) const          {return vec(x/integerNum,   y/integerNum,   z/integerNum);  }
 
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator* (const vec& vectorData) const noexcept {return vec(x*vectorData.x, y*vectorData.y, z*vectorData.z);}

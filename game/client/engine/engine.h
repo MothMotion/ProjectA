@@ -14,7 +14,6 @@ namespace engine {  // Пространство движка. Включает �
     class obj;          // obj   [Object]        : Координатная сетка сцены состоит из объектов. Благодаря объектам можно идентифицировать один объект от другого.
 }
 
-
 namespace engine {
 template <typename TypeXY=short, typename TypeZ=char>
 class vec {         // Трёхпространственный вектор формата (short, short, char). Таким образом максимально возможное поле ограничивается размерами 2^16 x 2^16 x 2^8. Отсчёт идёт с 0 и возможны отрицательные значения.
@@ -60,17 +59,17 @@ class vec {         // Трёхпространственный вектор ф�
         vec& operator-= (const vec& vectorData) noexcept;                //
         vec& operator*= (const vec& vectorData) noexcept;                // 
         template <typename any>                                          //
-        vec& operator*= (const any& integerNum) noexcept;                //
+        vec& operator*= (const any& integerNum) noexcept {this->x*=integerNum; this->y*=integerNum; this->z*=integerNum; return *this;};                //
         vec& operator/= (const vec& vectorData);                         //
         template <typename any>                                          //
-        vec& operator/= (const any& integerNum);                         //
+        vec& operator/= (const any& integerNum)          {this->x/=integerNum; this->y/=integerNum; this->z/=integerNum; return *this;};                         //
                                                     // *---------------------------------------*
 
                                                     // *==    Операторы суммы и умножения    ==*
         template <typename any>                                          //
-        vec operator* (const any& integerNum) const noexcept;            //
+        vec operator* (const any& integerNum) const noexcept {return vec<TypeXY, TypeZ>(this->x*integerNum, this->y*integerNum, this->z*integerNum);};            //
         template <typename any>                                          //
-        vec operator/ (const any& integerNum) const;                     //
+        vec operator/ (const any& integerNum) const          {return vec<TypeXY, TypeZ>(this->x/integerNum, this->y/integerNum, this->z/integerNum);};                     //
         vec operator* (const vec& vectorData) const noexcept;            //
         vec operator/ (const vec& vectorData) const;                     //
         vec operator+ (const vec& vectorData) const noexcept;            //
@@ -83,6 +82,10 @@ class vec {         // Трёхпространственный вектор ф�
                                                     // *---------------------------------------*
                             // *-----------------------*
 };
+    template class vec  <float, float>;         // vec   <float,float> для продвинутого перемещения по координатной сетке сцены.
+    template class vec<double, double>;         // vec<double, double> для расширенного метода перемещения по координатной сетке сцены или глобальной карте.
+    template class vec   <short, char>;         // vec   <short, char> для определения станданртной координатной сетки сцены.
+    template class vec     <long, int>;         // vec     <long, int> для определения стандонтной координатной сетки глобальной карты.
                             // ==Сопряжённая перегрузка дружественных функций==
 template <typename TypeXY = short, typename TypeZ = char>
 std::ostream& operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ>& Vector);     // Сопряжение с std::cout. ФОРМАТ ВЫВОДА: "x y z"
