@@ -1,8 +1,10 @@
 #include "engine.h"
-//template <typename TypeXY, typename TypeZ>
-//engine::vec<short, char>::vec() noexcept {this->x=0; this->y=0; this->z=0;}
 
-//namespace engine {
+template class engine::vec<float, float>;       // Для точечного передвижения по глобальной карте. Координатная сетка сцены располагается на short int и char
+template class engine::vec<short, char>;        // Стандартный вектор для координатной сетки основной сцены
+template class engine::vec<long, int>;          // Стандартный вектор для глобальной карты
+template class engine::vec<double, double>;     // Расширенный верктор глобальной карты или точечного передвижения
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>::vec() noexcept {this->x=0; this->y=0; this->z=0;}
 
@@ -10,7 +12,7 @@ template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>::vec(TypeXY x, TypeXY y, TypeZ z) {this->x=x; this->y=y; this->z=z;}
 
 template <typename TypeXY, typename TypeZ>
-engine::vec<TypeXY, TypeZ>::vec(TypeXY x, TypeXY y) {this->x=x; this->y=y; this->z=z;}
+engine::vec<TypeXY, TypeZ>::vec(TypeXY x, TypeXY y) {this->x=x; this->y=y; this->z=0;}
 
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>::vec(vec& copyData) noexcept {
@@ -19,7 +21,7 @@ engine::vec<TypeXY, TypeZ>::vec(vec& copyData) noexcept {
     z = copyData.z;
 }
 template <typename TypeXY, typename TypeZ>
-engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator= (vec& newData) noexcept {
+engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator= (vec<TypeXY, TypeZ>& newData) noexcept {
     if(*this == newData) return *this;
     x = newData.x;
     y = newData.y;
@@ -102,7 +104,7 @@ template <typename TypeXY, typename TypeZ>
 bool engine::vec<TypeXY, TypeZ>::operator== (const vec& vectorData) const noexcept {return x == vectorData.x && y == vectorData.y && z == vectorData.z;}
 template <typename TypeXY, typename TypeZ>
 bool engine::vec<TypeXY, TypeZ>::operator!= (const vec& vectorData) const noexcept {return !(*this == vectorData);}
-//};
+
 template <typename TypeXY, typename TypeZ>
 std::ostream& engine::operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ>& Vector) {
     Out << Vector.getX() << " " << Vector.getY() << " " << Vector.getZ();
@@ -110,7 +112,18 @@ std::ostream& engine::operator<< (std::ostream& Out, const engine::vec<TypeXY, T
 }
 template <typename TypeXY, typename TypeZ>
 std::istream& engine::operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ>& Vector) {
-    TypeXY x, y; TypeZ z; In >> x >> y >> z; 
-    Vector = engine::vec(x,y,z); return In;
+    TypeXY x, y; TypeZ z; In >> x >> y >> z; Vector.setX(x); Vector.setY(y); Vector.setZ(z);
+    return In;
 }
-int main() {engine::vec<short, char> test_vec(1,1,1); std::cout << test_vec; return 0;}
+
+template std::ostream& engine::operator<< <short, char>(std::ostream& Out, const engine::vec<short, char>& Vector);
+template std::istream& engine::operator>> <short, char>(std::istream&  In, engine::vec<short, char>& Vector);
+
+template std::ostream& engine::operator<< <float, float>(std::ostream& Out, const engine::vec<float, float>& Vector);
+template std::istream& engine::operator>> <float, float>(std::istream&  In, engine::vec<float, float>& Vector);
+
+template std::ostream& engine::operator<< <double, double>(std::ostream& Out, const engine::vec<double, double>& Vector);
+template std::istream& engine::operator>> <double, double>(std::istream&  In, engine::vec<double, double>& Vector);
+
+template std::ostream& engine::operator<< <long, int>(std::ostream& Out, const engine::vec<long, int>& Vector);
+template std::istream& engine::operator>> <long, int>(std::istream&  In, engine::vec<long, int>& Vector);

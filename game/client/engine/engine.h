@@ -67,9 +67,9 @@ class vec {         // Трёхпространственный вектор ф�
                                                     // *---------------------------------------*
 
                                                     // *==    Операторы суммы и умножения    ==*
-        template <typename any>                                                 //
+        template <typename any>                                          //
         vec operator* (const any& integerNum) const noexcept;            //
-        template <typename any>                                                 //
+        template <typename any>                                          //
         vec operator/ (const any& integerNum) const;                     //
         vec operator* (const vec& vectorData) const noexcept;            //
         vec operator/ (const vec& vectorData) const;                     //
@@ -90,6 +90,5 @@ template <typename TypeXY = short, typename TypeZ = char>
 std::istream& operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ>& Vector);           // Сопряжение с std::cin.  ФОРМАТ ВВОДА : "x y z"
 // *----------------------------------------------*
 };
-//#include "engine.cpp"
 
 #endif
