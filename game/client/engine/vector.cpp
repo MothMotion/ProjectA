@@ -63,34 +63,25 @@ inline double engine::vec<TypeXY, TypeZ>::getDist(const vec& centerData) const n
 
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator+= (const vec& vectorData) noexcept {x += vectorData.x; y += vectorData.y; z += vectorData.z; return *this;}
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator-= (const vec& vectorData) noexcept {x -= vectorData.x; y -= vectorData.y; z -= vectorData.z; return *this;}
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator*= (const vec& vectorData) noexcept {x *= vectorData.x; y *= vectorData.y; z *= vectorData.z; return *this;}
-    
-//template <typename TypeXY, typename TypeZ> template <typename any>
-//engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator*= (const any& integerNum) noexcept {x *= integerNum;   y *= integerNum;   z *= integerNum;   return *this;}
-    
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator/= (const vec& vectorData) {x /= vectorData.x; y /= vectorData.y; z /= vectorData.z; return *this;}
-    
-//template <typename TypeXY, typename TypeZ> template <typename any>
-//engine::vec<TypeXY, TypeZ>& engine::vec<TypeXY, TypeZ>::operator/= (const any& integerNum) {x /= integerNum;   y /= integerNum;   z /= integerNum;   return *this;}
-
-
-
-//template <typename TypeXY, typename TypeZ> template <typename any>
-//engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator* (const any& integerNum) const noexcept {return vec(x*integerNum,   y*integerNum,   z*integerNum);  }
-
-//template <typename TypeXY, typename TypeZ> template <typename any>    
-//engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator/ (const any& integerNum) const          {return vec(x/integerNum,   y/integerNum,   z/integerNum);  }
 
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator* (const vec& vectorData) const noexcept {return vec(x*vectorData.x, y*vectorData.y, z*vectorData.z);}
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator/ (const vec& vectorData) const          {return vec(x/vectorData.x, y/vectorData.y, z/vectorData.z);}              //!!!!! Деление 0 на 0! Необходимо выдавать ошибку bad value(vector.[INCORRECT_VALUE_CORD])
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator+ (const vec& vectorData) const noexcept {return vec(x+vectorData.x, y-vectorData.x, z-vectorData.z);}
+
 template <typename TypeXY, typename TypeZ>
 engine::vec<TypeXY, TypeZ> engine::vec<TypeXY, TypeZ>::operator- (const vec& vectorData) const noexcept {return vec(x-vectorData.x, y-vectorData.y, z-vectorData.z);}
 
@@ -100,26 +91,3 @@ template <typename TypeXY, typename TypeZ>
 bool engine::vec<TypeXY, TypeZ>::operator== (const vec& vectorData) const noexcept {return x == vectorData.x && y == vectorData.y && z == vectorData.z;}
 template <typename TypeXY, typename TypeZ>
 bool engine::vec<TypeXY, TypeZ>::operator!= (const vec& vectorData) const noexcept {return !(*this == vectorData);}
-
-template <typename TypeXY, typename TypeZ>
-std::ostream& engine::operator<< (std::ostream& Out, const engine::vec<TypeXY, TypeZ>& Vector) {
-    Out << Vector.getX() << " " << Vector.getY() << " " << Vector.getZ();
-    return Out;
-}
-template <typename TypeXY, typename TypeZ>
-std::istream& engine::operator>> (std::istream&  In, engine::vec<TypeXY, TypeZ>& Vector) {
-    TypeXY x, y; TypeZ z; In >> x >> y >> z; Vector.setX(x); Vector.setY(y); Vector.setZ(z);
-    return In;
-}
-
-template std::ostream& engine::operator<< <short, char>(std::ostream& Out, const engine::vec<short, char>& Vector);
-template std::istream& engine::operator>> <short, char>(std::istream&  In, engine::vec<short, char>& Vector);
-
-template std::ostream& engine::operator<< <float, float>(std::ostream& Out, const engine::vec<float, float>& Vector);
-template std::istream& engine::operator>> <float, float>(std::istream&  In, engine::vec<float, float>& Vector);
-
-template std::ostream& engine::operator<< <double, double>(std::ostream& Out, const engine::vec<double, double>& Vector);
-template std::istream& engine::operator>> <double, double>(std::istream&  In, engine::vec<double, double>& Vector);
-
-template std::ostream& engine::operator<< <long, int>(std::ostream& Out, const engine::vec<long, int>& Vector);
-template std::istream& engine::operator>> <long, int>(std::istream&  In, engine::vec<long, int>& Vector);

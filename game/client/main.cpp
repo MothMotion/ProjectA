@@ -3,15 +3,8 @@
 
 
 int main() {
-    engine::vec<short, char> test1(1,1,1);
-    std::cout << test1;
-    engine::vec<short, char> resolution(80, 24, 0);
-    engine::vec<short, char> res(80, 24, 0); int x(2);
-    engine::vec<float, float> movement(1.0f, 1.0f, 1.5f);
-    resolution == res; resolution *= x;
-    engine::vec<short, char> test = res * 3;
-    std::cout << test << std::endl;
-    std::cout << engine::vec<short, char>(1,2) * 2 << std::endl;
-    //std::cout << engine::vec<short, char>(1,2) / engine::vec<short, char>(-1, 0, 2) << std::endl;
-    return 0;
+  std::bitset<4> test_box(0);
+  std::bitset<12> test_id(1);
+  engine::obj test_obj(test_box, test_id);
+  return 0;
 }
