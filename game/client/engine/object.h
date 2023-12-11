@@ -1,14 +1,13 @@
 #ifndef ENGINE_OBJECT
 #define ENGINE_OBJECT
-
 #include "engine.h"
 
 namespace engine {
 
-class obj {
+  class obj {
   private:
-    std::bitset<2> box();               // Образуем шаблонный метод для определения стандартных и базовых операций и взаимодействи.
-    std::bitset<14> id();               // Идентификатор для более точечного определения методов и операций взаимодействий.
+    std::bitset<2> box;               // Образуем шаблонный метод для определения стандартных и базовых операций и взаимодействи.
+    std::bitset<14> id;               // Идентификатор для более точечного определения методов и операций взаимодействий.
     unsigned char objHealth;            // "Здоровье объекта". Для газов и жидкости - давление. 15 - норма, < - пониженное, > - повышенное. При достижении отрицательных значений или 0 происходит вызов функции уничтожения объекта по шаблону и по идентификатору, а также последующее удаление.
   public:
     unsigned char passSpeed;      // Скорость движения твёрдых сущностей по объекту, через него, под ним.
@@ -47,7 +46,7 @@ class obj {
   template<size_t size>
   struct compareBits {
     bool operator() (const std::bitset<size>& bitset1, const std::bitset<size>& bitset2) const {
-      for(unsigned char i=size-1; i>=0; --i) {
+      for(char i=size-1; i>=0; --i) {
         if(bitset2[i] && !bitset1[i]) return true;
         else if(!bitset2[i] && bitset1[i]) return false;
       }
@@ -63,8 +62,8 @@ class obj {
   template<size_t size, typename any>
   inline void setTo(std::bitset<size>& In, any integer);
 
-  template<size_t size1, size_t size2>
-  std::bitset<size1+size2> connectBits(std::bitset<size1>& bitset1, std::bitset<size2>& bitset2);
+  //template<size_t size1, size_t size2>
 }
+namespace engine {std::bitset<16> connectBits(std::bitset<2>& bitset1, std::bitset<14>& bitset2);}
 
 #endif

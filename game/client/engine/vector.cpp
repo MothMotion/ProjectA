@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "vector.h"
 /*
 template class engine::vec<float, float>;       // Для точечного передвижения по глобальной карте. Координатная сетка сцены располагается на short int и char
 template class engine::vec<short, char>;        // Стандартный вектор для координатной сетки основной сцены

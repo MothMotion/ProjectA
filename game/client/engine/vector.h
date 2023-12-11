@@ -1,8 +1,7 @@
 //#include "engine.h"
 #ifndef ENGINE_VECTOR
 #define ENGINE_VECTOR
-
-#include "engine.h"
+//#include "engine.h"
 
 namespace engine {
 template <typename TypeXY=short, typename TypeZ=char>
