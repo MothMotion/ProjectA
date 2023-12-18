@@ -6,6 +6,7 @@
 #include <functional>
 #include <bitset>
 #include <map>
+#include <iomanip>
 
 #include "vector.h"
 

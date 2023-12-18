@@ -9,10 +9,10 @@
 
 namespace engine {
   std::bitset<16> connectBits(std::bitset<2>& bitset1, std::bitset<14>& bitset2) {
-  std::bitset<16> temp;
-  for(unsigned char i=0; i<16; ++i)
-    (i<2) ? (temp[i] = bitset1[i]) : (temp[i] = bitset2[i-2]);
-  return temp;
+    std::bitset<16> temp;
+    for(unsigned char i=0; i<16; ++i)
+      (i<2) ? (temp[15-i] = bitset1[1-i]) : (temp[15-i] = bitset2[15-i]);
+    return temp;
   }
 
 

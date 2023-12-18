@@ -1,12 +1,18 @@
-#include "engine/engine.h"
-#include "engine/object.h"
-#include "engine/vector.h"
+#include "../shared/engine/engine.h"
+#include "../shared/engine/object.h"
+#include "../shared/engine/vector.h"
+#include "../shared/engine/visual.h"
+#include "network.h"
+#include <vector>
 
 
 
 int main() {
-  std::bitset<2> test_box(0);
-  std::bitset<14> test_id(0);
-  engine::obj test_object(std::bitset<2>(1), std::bitset<14>(0));
-  return 0;
+  Client client;
+  client.connectToServer("127.0.0.1", 8080);
+
+  client.send("Hello from client!");
+
+  std::string receivedData = client.receive();
+  std::cout << "Received: " << receivedData << std::endl;
 }

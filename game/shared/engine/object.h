@@ -28,9 +28,9 @@ namespace engine {
 
     ~obj() = default;
 
-    std::bitset<2> getBox()   const noexcept;
-    std::bitset<14> getID()   const noexcept;
-    unsigned char getHealth() const noexcept;
+    inline std::bitset<2> getBox()   const noexcept {return this->box;};
+    inline std::bitset<14> getID()   const noexcept {return this-> id;};
+    inline unsigned char getHealth() const noexcept {return this->objHealth;};
 
     void setBox(std::bitset<2> box)           noexcept;
     void setID(std::bitset<14> id)            noexcept;
@@ -64,6 +64,8 @@ namespace engine {
 
   //template<size_t size1, size_t size2>
 }
-namespace engine {std::bitset<16> connectBits(std::bitset<2>& bitset1, std::bitset<14>& bitset2);}
+namespace engine {
+  std::bitset<16> connectBits(std::bitset<2>& bitset1, std::bitset<14>& bitset2);
+}
 
 #endif

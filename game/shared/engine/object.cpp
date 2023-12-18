@@ -2,16 +2,10 @@
 #include "object.h"
 
 namespace engine {
-
-  
-  //std::map<std::bitset<2>, std::function<void(engine::obj&)>, engine::compareBits<2>> callBoxInit;
-  //std::map<std::bitset<16>, std::function<void(engine::obj&)>,engine::compareBits<16>> callIdInit;
-
   obj::obj(std::bitset<2> new_box, std::bitset<14> new_id) {
     this->box = new_box;
     this->id = new_id;
     this->objHealth = 255;
-    std::cout << "\n| TRYING TO CALL:\n| BOX: " << new_box << "\n| ID: " << new_id << "\n| BOX+ID: " << engine::connectBits(new_box, new_id);
     engine::callBoxInit[new_box](this);
     engine::callIdInit[engine::connectBits(new_box, new_id)](this);
   }
@@ -52,9 +46,9 @@ namespace engine {
 
 
 
-  inline std::bitset<2> obj::getBox()   const noexcept       {return this->box;}
-  inline std::bitset<14> obj::getID()   const noexcept       {return this-> id;}
-  inline unsigned char obj::getHealth() const noexcept {return this->objHealth;}
+  //inline std::bitset<2> obj::getBox()   const noexcept       {return this->box;}
+  //inline std::bitset<14> obj::getID()   const noexcept       {return this-> id;}
+  //inline unsigned char obj::getHealth() const noexcept {return this->objHealth;}
 
   inline void obj::setBox(std::bitset<2> new_box)             noexcept {this->box = new_box;}
   inline void obj::setID(std::bitset<14> new_id)              noexcept {this-> id =  new_id;}
@@ -84,11 +78,4 @@ namespace engine {
 
   //template<size_t size1, size_t size2>
 }
-namespace engine {
-  std::bitset<16> connectBits(std::bitset<2> bitset1, std::bitset<14> bitset2) {
-  std::bitset<16> temp;
-  for(unsigned char i=15; i>0; --i)
-    (i<2) ? (temp[i] = bitset2[i]) : (temp[i] = bitset1[i-14]);
-  return temp;
-  }
-}
+namespace engine {}
