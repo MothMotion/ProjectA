@@ -29,7 +29,7 @@ public:
 
 // ШИФРОВАНИЕ СЕТИ:
 
-constexpr unsigned short BOX_OFFSET = 16384;
+constexpr unsigned short BOX_OFFSET = 32768;
 
 namespace network {
   template<typename anyType>
@@ -39,18 +39,18 @@ namespace network {
     std::string objectCode = toBinary(object.getBox()[0]*2*BOX_OFFSET + object.getBox()[1]*BOX_OFFSET + (unsigned short)object.getID().to_ulong()) + toBinary(object.getHealth());
     return objectCode;
   }*/
-  template<typename anyType0, typename anyType1>
-  std::string vecCode(const engine::vec<anyType0, anyType1>& vector);/* {
+  //template<typename anyType0, typename anyType1>
+  std::string vecCode(const engine::vec<short, char>& vector);/* {
     std::string vectorCode = toBinary(vector.getX()) + toBinary(vector.getY()) + toBinary(vector.getZ());
     return vectorCode;
   }*/
   
-  template<typename anyType0, typename anyType1>
-  std::string dataCode(const engine::vec<anyType0, anyType1>& position, const engine::obj& object);/* {
+  //template<typename anyType0, typename anyType1>
+  std::string dataCode(const engine::vec<short, char>& position, const engine::obj& object);/* {
     return vecCode(position) + objCode(object);
   }*/
-  template<typename anyType0, typename anyType1>
-  std::string prepareForSend(unsigned char& actionCode, engine::vec<anyType0, anyType1>& position, engine::obj& object);/* {
+  //template<typename anyType0, typename anyType1>
+  std::string prepareForSend(unsigned char& actionCode, engine::vec<short, char>& position, engine::obj& object);/* {
     std::string readyToSend;
     readyToSend.push_back(actionCode);
     return readyToSend + dataCode(position, object);

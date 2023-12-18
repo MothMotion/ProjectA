@@ -61,7 +61,7 @@ namespace network {
     const unsigned short bitLen = sizeof(value);
     unsigned char byte;
 
-    for(unsigned short i = bitLen-1; i >= 0; --i) {
+    for(short i = bitLen-1; i >= 0; --i) {
       byte = (value >> (i*8)) & 0xFF;
       binaryString += byte;
     }
@@ -70,22 +70,28 @@ namespace network {
   }
 
   std::string objCode(const engine::obj& object) {
-    std::string objectCode = toBinary(object.getBox()[0]*2*BOX_OFFSET + object.getBox()[1]*BOX_OFFSET + (unsigned short)object.getID().to_ulong()) + toBinary(object.getHealth());
+    std::bitset<2> boxFix = object.getBox();
+    std::bitset<14> idFix = object.getID();
+    std::string objectCode = toBinary((unsigned short)engine::connectBits(boxFix, idFix).to_ulong()) + toBinary(object.getHealth());
     return objectCode;
   }
-  template<typename anyType0, typename anyType1>
-  std::string vecCode(const engine::vec<anyType0, anyType1>& vector) {
+  //template<typename anyType0, typename anyType1>
+  std::string vecCode(const engine::vec<short, char>& vector) {
     std::string vectorCode = toBinary(vector.getX()) + toBinary(vector.getY()) + toBinary(vector.getZ());
     return vectorCode;
   }
   
-  template<typename anyType0, typename anyType1>
-  std::string dataCode(const engine::vec<anyType0, anyType1>& position, const engine::obj& object) {
+  //template<typename anyType0, typename anyType1>
+  std::string dataCode(const engine::vec<short, char>& position, const engine::obj& object) {
     return vecCode(position) + objCode(object);
   }
-  template<typename anyType0, typename anyType1>
-  std::string prepareForSend(unsigned char& actionCode, engine::vec<anyType0, anyType1>& position, engine::obj& object) {
-    std::string readyToSend = actionCode + dataCode(position, object);
+  //template<typename anyType0, typename anyType1>
+  std::string prepareForSend(unsigned char& actionCode, engine::vec<short, char>& position, engine::obj& object) {
+    std::string readyToSend; readyToSend.push_back(actionCode);
+    readyToSend += dataCode(position, object);
+    for(unsigned char ch : readyToSend) std::cout << (int)ch << " ";
     return readyToSend;
   }
+  //template<typename short, typename char>
+  //std::string prepareForSend<short, char>(unsigned char& actionCode, engine::vec<short, char>& position, engine::obj& object);
 }
